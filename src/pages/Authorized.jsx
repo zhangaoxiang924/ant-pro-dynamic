@@ -3,6 +3,7 @@ import Redirect from 'umi/redirect';
 import { connect } from 'dva';
 import pathToRegexp from 'path-to-regexp';
 import Authorized from '@/utils/Authorized';
+import { Session } from '@/utils/storage';
 
 const getRouteAuthority = (path, routeData) => {
   let authorities;
@@ -35,7 +36,8 @@ const AuthComponent = ({
   },
   user,
 }) => {
-  const { currentUser } = user;
+  // const { currentUser } = user;
+  const currentUser = Session.get('currentUser');
   const { routes = [] } = route;
   const isLogin = currentUser && currentUser.name;
   console.log(currentUser, currentUser.name)
