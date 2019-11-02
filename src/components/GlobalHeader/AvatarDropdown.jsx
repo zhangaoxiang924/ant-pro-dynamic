@@ -5,6 +5,7 @@ import { connect } from 'dva';
 import router from 'umi/router';
 import HeaderDropdown from '../HeaderDropdown';
 import styles from './index.less';
+import { Session } from '@/utils/storage';
 
 class AvatarDropdown extends React.Component {
   onMenuClick = event => {
@@ -75,5 +76,6 @@ class AvatarDropdown extends React.Component {
 }
 
 export default connect(({ user }) => ({
-  currentUser: user.currentUser,
+  // currentUser: user.currentUser,
+  currentUser: Session.get('currentUser'),
 }))(AvatarDropdown);
