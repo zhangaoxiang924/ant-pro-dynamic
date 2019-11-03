@@ -4,6 +4,7 @@
  */
 import { extend } from 'umi-request';
 import { notification } from 'antd';
+
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
   201: '新建或修改数据成功。',
@@ -47,10 +48,25 @@ const errorHandler = error => {
 /**
  * 配置request请求时的默认参数
  */
-
 const request = extend({
   errorHandler,
   // 默认错误处理
   credentials: 'include', // 默认请求是否带上cookie
 });
+
+request.use(async (ctx, next) => {
+  const { req } = ctx; // 使用中间件对请求前后的数据进行处理
+  const { url, options } = req;
+
+  console.log({ req, url, options })
+
+  await next();
+
+  const { res } = ctx;
+  // const { success = false } = res; // 假设返回结果为 : { success: false, errorCode: 'B001' }
+  // if (!success) {
+    // 对异常情况做对应处理
+  // }
+})
+
 export default request;
